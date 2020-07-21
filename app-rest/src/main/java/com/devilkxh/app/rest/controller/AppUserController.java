@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 /**
  * @author kexiaohong
  * @since 2020/7/18
@@ -32,7 +34,11 @@ public class AppUserController {
         }
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq(AppUserColumn.OPEN_ID.toString(), user.getOpenId());
-
+        int count = userService.selectCount(wrapper);
+        if (count == 0) {
+            user.setUuid(UUID.randomUUID().toString());
+            userService.insert(user);
+        }
         return ResponseHelper.success();
     }
 
