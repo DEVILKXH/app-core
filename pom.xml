@@ -88,8 +88,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.devilkxh.app.rest.AppRestApplication</mainClass>
-                    <executable>true</executable>
+                    <mainClass>com.devilkxh.app.rest.Application</mainClass>
+
                     <includeSystemScope>true</includeSystemScope>
                 </configuration>
                 <executions>
@@ -99,6 +99,7 @@
                         </goals>
                     </execution>
                 </executions>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -2,7 +2,7 @@
 server:
   servlet:
     context-path: /app
-  port: 8088
+  port: 8888
 
 # Spring 日志策略
 logging:
