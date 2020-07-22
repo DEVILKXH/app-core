@@ -11,5 +11,6 @@ public enum AppUserColumn {
     OPEN_ID,
     USER_TYPE,
     USER_REGISTER_TIME,
-    USER_BIRTHDAY;
+    USER_BIRTHDAY,
+    USER_IP;
 }

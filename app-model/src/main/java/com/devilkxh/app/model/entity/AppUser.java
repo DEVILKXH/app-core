@@ -34,4 +34,10 @@ public class AppUser {
 
     @TableId(value = "USER_BIRTHDAY")
     private Date userBirthday;
+
+    @TableId(value = "USER_IP")
+    private String userIp;
+
+    @TableId(value = "USER_LOGO")
+    private String userLogo;
 }
