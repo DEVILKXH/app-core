@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import lombok.Data;
 
-import java.util.Date;
-
+/**
+ * @author kexiaohong
+ * @since 2020/7/24
+ */
 @Data
-@TableName(value = "APP_GAME_SCORE")
-public class AppGameScore {
+@TableName(value = "APP_GAME_POINT")
+public class AppGamePoint {
 
     @TableId(value = "UUID")
     private String uuid;
@@ -17,12 +19,9 @@ public class AppGameScore {
     @TableField(value = "OPEN_ID")
     private String openId;
 
-    @TableField(value = "GAME_DATE")
-    private String date;
+    @TableField(value = "POINT")
+    private int point;
 
     @TableField(value = "SCORE")
     private int score;
-
-    @TableField(value = "POINT")
-    private int point;
 }

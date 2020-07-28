@@ -10,45 +10,49 @@ import java.util.Map;
  * @since 2020/7/20
  */
 public class Demo {
-    public List<String> findAndReplacePattern(String[] words, String pattern) {
-        List<String> list = new ArrayList<>();
-        for(String word: words) {
-            if (isPattern(word, pattern)) {
-                list.add(word);
+    public int minDominoRotations(int[] A, int[] B) {
+        int len = A.length - 1;
+        int []a = new int[6];
+        for (int i = 0; i < A.length; i++) {
+            a[A[i] - 1] ++;
+            if (A[i] != B[i]) {
+                a[B[i] - 1] ++;
             }
         }
-        return list;
-    }
 
-    private boolean isPattern(String word, String pattern) {
-        if (word.length() != pattern.length()) {
-            return false;
-        }
-        Map<String, Character> map = new HashMap<>();
-        int len = word.length();
-        for(int i = 0; i < len; i ++) {
-            char w = word.charAt(i);
-            char p = pattern.charAt(i);
-            String pkey = "p" + p;
-            String wkey = "w" + w;
-
-            if (map.containsKey(pkey) && map.containsKey(wkey)) {
-                char w1 = map.get(pkey);
-                char p1 = map.get(wkey);
-                if (w1 != w || p1 != p) {
-                    return false;
-                }
-            } else if (!map.containsKey(pkey) && !map.containsKey(wkey)) {
-                map.put(pkey, w);
-                map.put(wkey, p);
-            }  else {
-                return false;
+        boolean flag = false;
+        int index = 0;
+        for (int i = 0; i < a.length; i ++) {
+            if (a[i] > len) {
+                flag = true;
+                index = i + 1;
             }
         }
-        return true;
+        if (!flag) {
+            return -1;
+        }
+        int num = 0;
+        int num2 = 0;
+
+        for(int i = 0; i < A.length; i ++) {
+            if(A[i] == index) {
+                num ++;
+            }
+            if(B[i] == index) {
+                num2 ++;
+            }
+        }
+        if (num > len || num2 > len) {
+            return 0;
+        }
+        if (num < num2) {
+            return len + 1 - num2;
+        } else {
+            return len + 1 - num;
+        }
     }
 
     public static void main(String []agrs) {
-        new Demo().findAndReplacePattern(new String[]{"abc","deq","mee","aqq","dkd","ccc"}, "abb");
+        new Demo().minDominoRotations(new int[]{2,1,2,4,2,2},  new int[]{5,2,6,2,3,2});
     }
 }
