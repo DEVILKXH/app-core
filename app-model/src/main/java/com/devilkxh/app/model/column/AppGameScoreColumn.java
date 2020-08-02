@@ -4,5 +4,6 @@ public enum AppGameScoreColumn {
     UUID,
     OPEN_ID,
     GAME_DATE,
-    SCORE
+    SCORE,
+    POINT
 }

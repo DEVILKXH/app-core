@@ -13,6 +13,7 @@ import com.devilkxh.app.model.entity.AppGameShareInfo;
 import com.devilkxh.app.model.enums.ExceptionError;
 import com.devilkxh.app.model.vo.ResultBean;
 import com.devilkxh.app.service.AppGameLogService;
+import com.devilkxh.app.service.AppGamePointService;
 import com.devilkxh.app.service.AppGameScoreService;
 import com.devilkxh.app.service.AppGameShareInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,14 @@ public class AppGameScoreController {
     private AppGameShareInfoService shareInfoService;
 
     @Autowired
+    private AppGamePointService pointService;
+
+    @Autowired
     private AppGameLogService logService;
 
     @PostMapping(value = "/save")
     public ResultBean save(@RequestBody AppGameScore score) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        score.setUuid(UUID.randomUUID().toString());
-        score.setDate(sdf.format(new Date()));
-        scoreService.insert(score);
-        return ResponseHelper.success();
+        return scoreService.save(score);
     }
 
     @PostMapping(value = "/count")
