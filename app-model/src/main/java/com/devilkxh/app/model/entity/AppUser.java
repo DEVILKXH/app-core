@@ -40,4 +40,5 @@ public class AppUser {
 
     @TableId(value = "USER_LOGO")
     private String userLogo;
+
 }

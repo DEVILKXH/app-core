@@ -8,6 +8,7 @@ import lombok.Data;
  */
 public enum ExceptionError {
     WECHAT_OPEN_ID_NULL(10_00_0, "微信OPENID不能为空"),
+    WECHAT_ERROR(10_00_1, "微信授权错误"),
     UNKOWN_EXCEPTON(99_99_9, "未知错误");
 
     private int code;
