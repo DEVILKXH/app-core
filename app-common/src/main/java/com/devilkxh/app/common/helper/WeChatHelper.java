@@ -47,7 +47,7 @@ public class WeChatHelper {
 
         JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
         // 如果请求成功
-        if (null != jsonObject) {
+        if (null != jsonObject && !jsonObject.containsKey("errcode")) {
             try {
                 accessToken = new AccessToken();
                 accessToken.setToken(jsonObject.getString("access_token"));
@@ -117,7 +117,7 @@ public class WeChatHelper {
      * @return
      * @throws Exception
      */
-    public static String GetJsAPISign(HashMap<String, String> bizObj) throws Exception {
+    public static String getJsAPISign(Map<String, String> bizObj) throws Exception {
         HashMap<String, String> bizParameters = new HashMap<String, String>();
 
         List<Map.Entry<String, String>> infoIds = new ArrayList<Map.Entry<String, String>>(bizObj.entrySet());
@@ -226,4 +226,22 @@ public class WeChatHelper {
         return JSONObject.toJavaObject(json, UserInfo.class);
     }
 
+    public static JSONObject sign(String url) throws Exception {
+        JsApiTicket jsapiTicket = getJsapiTicket(WechatConstant.APPID, WechatConstant.SECRET, null);
+        long timestamp = new Date().getTime();
+        String noncestr = CreateNoncestr();
+        Map<String, String> map = new HashMap<>();
+        map.put("noncestr", noncestr);
+        map.put("jsapi_ticket", jsapiTicket.getTicket());
+        map.put("timestamp", String.valueOf(timestamp));
+        map.put("url", url);
+        String sign = getJsAPISign(map);
+        JSONObject res = new JSONObject();
+        res.put("noncestr", noncestr);
+        res.put("jsapi_ticket", jsapiTicket.getTicket());
+        res.put("timestamp", String.valueOf(timestamp));
+        res.put("url", url);
+        res.put("sign", sign);
+        return res;
+    }
 }

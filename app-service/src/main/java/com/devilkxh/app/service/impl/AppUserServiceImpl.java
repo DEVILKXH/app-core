@@ -22,9 +22,9 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
     @Override
     public void saveOrUpdate(UserInfo userInfo) {
         AppUser query = new AppUser();
-
+        query.setOpenId(userInfo.getOpenid());
         AppUser user = baseMapper.selectOne(query);
-        if (null != user && StringUtils.isNullOrEmpty(user.getOpenId())) {
+        if (null != user && !StringUtils.isNullOrEmpty(user.getOpenId())) {
             user.setOpenId(userInfo.getOpenid());
             user.setUserName(userInfo.getNickname());
             user.setUserLogo(userInfo.getHeadimgurl());
@@ -36,7 +36,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
             appUser.setUserName(userInfo.getNickname());
             appUser.setUserLogo(userInfo.getHeadimgurl());
             appUser.setUserRegisterTime(new Date());
-            baseMapper.insert(user);
+            baseMapper.insert(appUser);
         }
     }
 }

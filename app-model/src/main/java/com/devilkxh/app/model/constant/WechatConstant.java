@@ -6,7 +6,7 @@ public class WechatConstant {
 
     public static final String CORPID = "";
 
-    public static final String SECRET = "";
+    public static final String SECRET = "5ae88c579b52dbc6972f3b5b9333fc36";
 
     public static final String CODE_TO_JSAPI_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
 

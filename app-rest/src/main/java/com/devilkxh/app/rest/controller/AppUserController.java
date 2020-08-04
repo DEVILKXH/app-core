@@ -47,9 +47,9 @@ public class AppUserController {
     }
 
     @PostMapping(value = "/sign")
-    public ResultBean sign() {
-//        AccessToken accessToken = WeChatHelper.getAccessToken();
-        return ResponseHelper.success();
+    public ResultBean sign(@RequestBody String url) throws Exception {
+        JSONObject res = WeChatHelper.sign(url);
+        return ResponseHelper.success(res);
     }
 
     @PostMapping(value = "/test")
