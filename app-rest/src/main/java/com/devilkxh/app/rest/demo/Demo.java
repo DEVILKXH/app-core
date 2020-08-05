@@ -1,58 +1,28 @@
 package com.devilkxh.app.rest.demo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author kexiaohong
  * @since 2020/7/20
  */
 public class Demo {
-    public int minDominoRotations(int[] A, int[] B) {
-        int len = A.length - 1;
-        int []a = new int[6];
-        for (int i = 0; i < A.length; i++) {
-            a[A[i] - 1] ++;
-            if (A[i] != B[i]) {
-                a[B[i] - 1] ++;
-            }
+    //480
+    public double[] medianSlidingWindow(int[] nums, int k) {
+        int []num = new int[k];
+        double res[] = new double[nums.length - k + 1];
+        for(int i = 0; i < k;i ++) {
+            num[i] = nums[i];
         }
+        Arrays.sort(num);
 
-        boolean flag = false;
-        int index = 0;
-        for (int i = 0; i < a.length; i ++) {
-            if (a[i] > len) {
-                flag = true;
-                index = i + 1;
-            }
-        }
-        if (!flag) {
-            return -1;
-        }
-        int num = 0;
-        int num2 = 0;
+        for(int i = k; i < nums.length; i ++) {
 
-        for(int i = 0; i < A.length; i ++) {
-            if(A[i] == index) {
-                num ++;
-            }
-            if(B[i] == index) {
-                num2 ++;
-            }
         }
-        if (num > len || num2 > len) {
-            return 0;
-        }
-        if (num < num2) {
-            return len + 1 - num2;
-        } else {
-            return len + 1 - num;
-        }
+        return res;
     }
 
     public static void main(String []agrs) {
-        new Demo().minDominoRotations(new int[]{2,1,2,4,2,2},  new int[]{5,2,6,2,3,2});
+        System.out.println(new Demo().medianSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3));
     }
 }
