@@ -117,7 +117,7 @@ public class WeChatHelper {
      * @return
      * @throws Exception
      */
-    public static String GetJsAPISign(HashMap<String, String> bizObj) throws Exception {
+    public static String GetJsAPISign(Map<String, String> bizObj) throws Exception {
         HashMap<String, String> bizParameters = new HashMap<String, String>();
 
         List<Map.Entry<String, String>> infoIds = new ArrayList<Map.Entry<String, String>>(bizObj.entrySet());

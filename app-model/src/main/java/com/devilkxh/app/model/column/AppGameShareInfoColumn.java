@@ -2,7 +2,8 @@ package com.devilkxh.app.model.column;
 
 public enum AppGameShareInfoColumn {
     UUID,
-    OEPN_ID,
+    OPEN_ID,
     SHARE_DATE,
-    DESC;
+    DESC,
+    SHARE_OPEN_ID;
 }
