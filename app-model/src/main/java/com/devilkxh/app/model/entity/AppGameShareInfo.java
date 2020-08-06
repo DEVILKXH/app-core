@@ -19,4 +19,7 @@ public class AppGameShareInfo {
 
     @TableField("DESC")
     private String desc;
+
+    @TableField("SHARE_OPEN_ID")
+    private String shareOpenId;
 }

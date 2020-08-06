@@ -50,12 +50,12 @@ public class AppGameScoreController {
     @PostMapping(value = "/count")
     public ResultBean count(@RequestBody AppGameScore score) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(new Date());
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq(AppGameLogColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameLogColumn.TYPE.toString() , Constant.LOG_TYPE);
+        wrapper.eq(AppGameLogColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameLogColumn.TYPE.toString() , Constant.LOG_TYPE).and().eq(AppGameLogColumn.GAME_DATE.toString() , date);
         int count  = logService.selectCount(wrapper);
-
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq(AppGameScoreColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameShareInfoColumn.SHARE_DATE.toString() , sdf.format(new Date()));
+        queryWrapper.eq(AppGameScoreColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameShareInfoColumn.SHARE_DATE.toString() , date);
         int count2  = shareInfoService.selectCount(queryWrapper);
 
         return ResponseHelper.success(count - count2);
