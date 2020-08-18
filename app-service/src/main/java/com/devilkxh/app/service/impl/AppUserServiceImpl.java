@@ -36,7 +36,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
             appUser.setUserName(userInfo.getNickname());
             appUser.setUserLogo(userInfo.getHeadimgurl());
             appUser.setUserRegisterTime(new Date());
-            baseMapper.insert(user);
+            baseMapper.insert(appUser);
         }
     }
 }
