@@ -23,9 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -49,23 +46,10 @@ public class AppUserController {
         return ResponseHelper.success(userInfo.getOpenid());
     }
 
-    @PostMapping(value = "/getByOpenId")
-    public ResultBean getByOpenId(@RequestBody String openId) {
-        QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq(AppUserColumn.OPEN_ID.toString(), openId);
-        return ResponseHelper.success(userService.selectOne(wrapper));
-    }
-
     @PostMapping(value = "/sign")
     public ResultBean sign(@RequestBody String url) throws Exception {
-        Map<String, String> map = new HashMap<>();
-        map.put("jsapi_ticket", WeChatHelper.getJsapiTicket(WechatConstant.APPID, WechatConstant.SECRET,null).getTicket());
-        map.put("noncestr", WeChatHelper.CreateNoncestr());
-        map.put("timestamp", String.valueOf(new Date().getTime()));
-        map.put("url", url);
-        String signature = WeChatHelper.GetJsAPISign(map);
-        map.put("signature", signature);
-        return ResponseHelper.success(map);
+        JSONObject res = WeChatHelper.sign(url);
+        return ResponseHelper.success(res);
     }
 
     @PostMapping(value = "/test")
