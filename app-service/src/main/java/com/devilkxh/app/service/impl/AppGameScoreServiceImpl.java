@@ -44,4 +44,9 @@ public class AppGameScoreServiceImpl extends ServiceImpl<AppGameScoreMapper, App
         pointService.nextPoint(point);
         return ResponseHelper.success();
     }
+
+    @Override
+    public int getMaxScore(AppGameScore score) {
+        return baseMapper.getMaxScore(score);
+    }
 }

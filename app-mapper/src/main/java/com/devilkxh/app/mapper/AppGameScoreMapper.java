@@ -15,4 +15,7 @@ public interface AppGameScoreMapper extends BaseMapper<AppGameScore> {
             " group by OPEN_ID) t on u.open_id = t.OPEN_ID" +
             " order by t.score desc")
     List<Map<String, String>> getRankList();
+
+    @Select("select max(score) score from APP_GAME_SCORE where OPEN_ID = #{openId} and POINT = #{point}")
+    int getMaxScore(AppGameScore score);
 }
