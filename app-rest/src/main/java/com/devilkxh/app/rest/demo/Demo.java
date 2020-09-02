@@ -1,6 +1,8 @@
 package com.devilkxh.app.rest.demo;
 
+import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author kexiaohong
@@ -20,9 +22,14 @@ public class Demo {
 
         }
         return res;
+
     }
 
     public static void main(String []agrs) {
-        System.out.println(new Demo().medianSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3));
+
+//        System.out.println(new Demo().medianSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3));
+        File files = new File("D:\\workspace\\wx\\link-up\\bg");
+        String mesx = Arrays.stream(files.listFiles()).map(File::getName).collect(Collectors.joining("\", \"bg/"));
+        System.out.println(mesx);
     }
 }
