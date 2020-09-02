@@ -52,6 +52,14 @@ public class AppUserController {
         return ResponseHelper.success(res);
     }
 
+    @PostMapping(value = "/getByOpenId")
+    public ResultBean getByOpenId(@RequestBody String openId){
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq(AppUserColumn.OPEN_ID.toString(), openId);
+        AppUser user = userService.selectOne(wrapper);
+        return ResponseHelper.success(user);
+    }
+
     @PostMapping(value = "/test")
     public String test() {
         return AppUserColumn.OPEN_ID.toString();

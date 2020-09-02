@@ -4,6 +4,7 @@ import com.devilkxh.app.common.helper.ResponseHelper;
 import com.devilkxh.app.common.wrapper.QueryWrapper;
 import com.devilkxh.app.model.column.AppGamePointColumn;
 import com.devilkxh.app.model.entity.AppGamePoint;
+import com.devilkxh.app.model.entity.AppGameScore;
 import com.devilkxh.app.model.vo.ResultBean;
 import com.devilkxh.app.service.AppGamePointService;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +30,7 @@ public class AppGamePointController {
     @PostMapping(value = "/getCurrentPoint")
     public ResultBean getCurrentPoint(@RequestBody AppGamePoint point) {
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq(AppGamePointColumn.OPEN_ID.toString(), point.getOpenId()).orderBy(AppGamePointColumn.POINT.toString(), false);
+        wrapper.eq(AppGamePointColumn.OPEN_ID.toString(), point.getOpenId()).and().ne(AppGamePointColumn.SCORE.toString(), 0).orderBy(AppGamePointColumn.POINT.toString(), false);
         List<AppGamePoint> points = pointService.selectList(wrapper);
         if (null == points || points.isEmpty()) {
             AppGamePoint newPoint = new AppGamePoint();
