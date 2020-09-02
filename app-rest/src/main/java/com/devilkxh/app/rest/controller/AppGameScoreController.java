@@ -65,4 +65,9 @@ public class AppGameScoreController {
     public ResultBean rank() {
         return ResponseHelper.success(scoreService.getRankList());
     }
+
+    @PostMapping(value = "/getMaxScore")
+    public ResultBean getMaxScore(@RequestBody AppGameScore score) {
+        return ResponseHelper.success(scoreService.getMaxScore(score));
+    }
 }

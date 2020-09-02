@@ -11,4 +11,6 @@ public interface AppGameScoreService extends IService<AppGameScore> {
     List<Map<String, String>> getRankList();
 
     ResultBean save(AppGameScore score);
+
+    int getMaxScore(AppGameScore score);
 }

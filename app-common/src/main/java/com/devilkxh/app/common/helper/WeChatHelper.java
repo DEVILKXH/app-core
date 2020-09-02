@@ -46,6 +46,7 @@ public class WeChatHelper {
         }
 
         JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
+        System.out.println("获取token成功:" + jsonObject.toJSONString());
         // 如果请求成功
         if (null != jsonObject && !jsonObject.containsKey("errcode")) {
             try {
