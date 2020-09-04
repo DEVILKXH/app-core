@@ -71,6 +71,7 @@ public class WeChatHelper {
 
     public static JsApiTicket getJsapiTicket(String appId, String appSecret, String agentid) {
         String access_token = TokenHelper.checkTokenGZH(appId, appSecret, agentid);
+//        String access_token = "36_6oTKh_Aw1DPhjWGe6AZD6P-kno-35DJ_yfRYThSiBaSpz7GtSNK_AcWbLIYGZyYV9GVEeLQLPJmxI2XBS2tcB69eV5FyO5gMkBrCuX9kG8Z7W5KQjTnF0or4ApfAalBySyPyoqoK-qMLHl8WUWDaAEAIKR";
         String url = WechatConstant.CODE_TO_JSAPI_TICKET.replace("ACCESS_TOKEN", access_token);
         JSONObject object = httpRequest(url, HttpHelper.GET, null);
         return JSONObject.toJavaObject(object, JsApiTicket.class);
