@@ -13,4 +13,6 @@ public interface AppGameScoreService extends IService<AppGameScore> {
     ResultBean save(AppGameScore score);
 
     int getMaxScore(AppGameScore score);
+
+    int getAllScore(AppGameScore score);
 }

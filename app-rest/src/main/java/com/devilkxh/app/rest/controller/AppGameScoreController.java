@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -68,6 +70,11 @@ public class AppGameScoreController {
 
     @PostMapping(value = "/getMaxScore")
     public ResultBean getMaxScore(@RequestBody AppGameScore score) {
-        return ResponseHelper.success(scoreService.getMaxScore(score));
+        int maxScore = scoreService.getMaxScore(score);
+        int totalScore = scoreService.getAllScore(score);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("max", maxScore);
+        map.put("total", totalScore);
+        return ResponseHelper.success(map);
     }
 }
