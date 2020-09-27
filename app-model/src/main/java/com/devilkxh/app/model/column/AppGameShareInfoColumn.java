@@ -5,5 +5,6 @@ public enum AppGameShareInfoColumn {
     OPEN_ID,
     SHARE_DATE,
     DESC,
-    SHARE_OPEN_ID;
+    SHARE_OPEN_ID,
+    SHARE_TYPE;
 }

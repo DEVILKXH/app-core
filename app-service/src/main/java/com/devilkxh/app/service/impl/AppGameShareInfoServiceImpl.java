@@ -12,7 +12,12 @@ import java.util.Map;
 @Service
 public class AppGameShareInfoServiceImpl extends ServiceImpl<AppGameShareInfoMapper, AppGameShareInfo> implements AppGameShareInfoService {
     @Override
-    public List<Map<String, String>> getShareInfo(String openId) {
-        return baseMapper.getShareInfo(openId);
+    public List<Map<String, String>> getShareInfo(AppGameShareInfo shareInfo) {
+        return baseMapper.getShareInfo(shareInfo);
+    }
+
+    @Override
+    public List<Map<String, Object>> countGameByType(String openId) {
+        return baseMapper.countGameByType(openId);
     }
 }

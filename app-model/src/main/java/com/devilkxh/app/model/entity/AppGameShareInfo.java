@@ -22,4 +22,7 @@ public class AppGameShareInfo {
 
     @TableField("SHARE_OPEN_ID")
     private String shareOpenId;
+
+    @TableField("SHARE_TYPE")
+    private String shareType;
 }

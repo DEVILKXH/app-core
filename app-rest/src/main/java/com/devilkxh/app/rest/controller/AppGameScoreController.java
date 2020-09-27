@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/score")
@@ -57,15 +54,30 @@ public class AppGameScoreController {
         wrapper.eq(AppGameLogColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameLogColumn.TYPE.toString() , Constant.LOG_TYPE).and().eq(AppGameLogColumn.GAME_DATE.toString() , date);
         int count  = logService.selectCount(wrapper);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq(AppGameScoreColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameShareInfoColumn.SHARE_DATE.toString() , date);
+        queryWrapper.eq(AppGameScoreColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameShareInfoColumn.SHARE_DATE.toString() , date).and().eq(AppGameShareInfoColumn.SHARE_TYPE.toString(), "GAME");
         int count2  = shareInfoService.selectCount(queryWrapper);
-
         return ResponseHelper.success(count - count2);
     }
 
     @PostMapping(value = "/rank")
     public ResultBean rank() {
         return ResponseHelper.success(scoreService.getRankList());
+    }
+
+    @PostMapping(value = "/groupCount")
+    public ResultBean groupCount(@RequestBody AppGameScore score) {
+        List<Map<String, Object>> logCount = logService.countGameByType(score.getOpenId());
+        List<Map<String, Object>> shareCount = shareInfoService.countGameByType(score.getOpenId());
+        Map<String, Integer> result = new HashMap<>();
+        for(Map<String, Object> map: shareCount) {
+            result.put(String.valueOf(map.get("type")), Integer.valueOf(map.get("count").toString()));
+        }
+        for(Map<String, Object> map: logCount) {
+            String key = String.valueOf(map.get("type"));
+            int value = result.get(key) - Integer.valueOf(map.get("count").toString());
+            result.put(key, value);
+        }
+        return ResponseHelper.success(result);
     }
 
     @PostMapping(value = "/getMaxScore")

@@ -7,6 +7,7 @@ import com.devilkxh.app.model.column.AppGameShareInfoColumn;
 import com.devilkxh.app.model.entity.AppGameShareInfo;
 import com.devilkxh.app.model.vo.ResultBean;
 import com.devilkxh.app.service.AppGameShareInfoService;
+import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,7 @@ public class AppGameShareInfoController {
         QueryWrapper wrapper = new QueryWrapper();
         wrapper.eq(AppGameShareInfoColumn.OPEN_ID.toString(), shareInfo.getOpenId()).
                 and().eq(AppGameShareInfoColumn.SHARE_OPEN_ID.toString(), shareInfo.getShareOpenId()).
+                and().eq(AppGameShareInfoColumn.SHARE_TYPE.toString(), shareInfo.getShareType().toUpperCase()).
                 and().eq(AppGameShareInfoColumn.SHARE_DATE.toString(), sdf.format(new Date()));
 
         int count = shareInfoService.selectCount(wrapper);
@@ -39,14 +41,18 @@ public class AppGameShareInfoController {
         }
         shareInfo.setShareDate(sdf.format(new Date()));
         shareInfo.setUuid(UUID.randomUUID().toString());
+        shareInfo.setShareType(shareInfo.getShareType().toUpperCase());
         shareInfoService.insert(shareInfo);
         return ResponseHelper.success("助力成功");
     }
 
 
     @PostMapping(value = "/getShareInfo")
-    public ResultBean getShareInfo(@RequestBody String openId) {
-        List<Map<String, String>> list = shareInfoService.getShareInfo(openId);
+    public ResultBean getShareInfo(@RequestBody AppGameShareInfo shareInfo) {
+        if(StringUtils.isNullOrEmpty(shareInfo.getShareType())) {
+            shareInfo.setShareType("GAME");
+        }
+        List<Map<String, String>> list = shareInfoService.getShareInfo(shareInfo);
         return ResponseHelper.success(list);
     }
 }
