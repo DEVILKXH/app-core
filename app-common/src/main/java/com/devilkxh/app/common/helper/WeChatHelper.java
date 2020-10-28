@@ -74,6 +74,7 @@ public class WeChatHelper {
 //        String access_token = "36_6oTKh_Aw1DPhjWGe6AZD6P-kno-35DJ_yfRYThSiBaSpz7GtSNK_AcWbLIYGZyYV9GVEeLQLPJmxI2XBS2tcB69eV5FyO5gMkBrCuX9kG8Z7W5KQjTnF0or4ApfAalBySyPyoqoK-qMLHl8WUWDaAEAIKR";
         String url = WechatConstant.CODE_TO_JSAPI_TICKET.replace("ACCESS_TOKEN", access_token);
         JSONObject object = httpRequest(url, HttpHelper.GET, null);
+        System.out.println("JsApiTicket: " + object.toJSONString());
         return JSONObject.toJavaObject(object, JsApiTicket.class);
     }
 
@@ -219,6 +220,18 @@ public class WeChatHelper {
         JSONObject json = HttpHelper.httpRequest(url, HttpHelper.GET, null);
         WeixinUser user = JSONObject.toJavaObject(json, WeixinUser.class);
         return user;
+    }
+
+    public static boolean isSubcribe(String openId) {
+        AccessToken accessToken = getAccessToken(WechatConstant.APPID, WechatConstant.SECRET, null);
+        String url = WechatConstant.CODE_TP_USER_INFO.replace(WeChat.ACCESS_TOKEN.toString(), accessToken.getToken()).replace(WeChat.OPENID.toString(), openId);
+        JSONObject json = HttpHelper.httpRequest(url, HttpHelper.GET, null);
+        if(json.containsKey("subscribe")) {
+            if(json.getInteger("subscribe") == 1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static UserInfo getUserInfo(String code) {

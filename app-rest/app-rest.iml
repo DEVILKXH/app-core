@@ -20,6 +20,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.48.sec06" level="project" />
     <orderEntry type="module" module-name="app-service" />
     <orderEntry type="module" module-name="app-common" />
     <orderEntry type="module" module-name="app-model" />

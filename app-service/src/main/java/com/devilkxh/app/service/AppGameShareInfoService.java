@@ -9,4 +9,6 @@ import java.util.Map;
 public interface AppGameShareInfoService extends IService<AppGameShareInfo> {
     List<Map<String, String>> getShareInfo(AppGameShareInfo openId);
     List<Map<String, Object>> countGameByType(String openId);
+
+    void saveProp(String openid);
 }

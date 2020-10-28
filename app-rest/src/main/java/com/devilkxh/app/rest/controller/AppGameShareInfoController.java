@@ -35,7 +35,7 @@ public class AppGameShareInfoController {
                 and().eq(AppGameShareInfoColumn.SHARE_DATE.toString(), sdf.format(new Date()));
 
         int count = shareInfoService.selectCount(wrapper2);
-        if (count >= 5) {
+        if (count > 1) {
             return ResponseHelper.success("您今天助力次数达到上限，不能在助力了哦");
         }
 
@@ -44,7 +44,7 @@ public class AppGameShareInfoController {
                 and().eq(AppGameShareInfoColumn.SHARE_DATE.toString(), sdf.format(new Date()));
 
         count = shareInfoService.selectCount(wrapper3);
-        if (count >= 3) {
+        if (count > 9) {
             return ResponseHelper.success("对方今天助力次数达到上限，不能在助力了哦");
         }
 
@@ -55,7 +55,7 @@ public class AppGameShareInfoController {
                 and().eq(AppGameShareInfoColumn.SHARE_DATE.toString(), sdf.format(new Date()));
 
         count = shareInfoService.selectCount(wrapper);
-        if (count != 0) {
+        if (count > 4) {
             return ResponseHelper.success("您今天已经助力过了，不能在助力了哦");
         }
 

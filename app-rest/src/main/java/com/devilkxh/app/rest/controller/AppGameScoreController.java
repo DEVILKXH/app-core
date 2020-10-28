@@ -1,6 +1,7 @@
 package com.devilkxh.app.rest.controller;
 
 import com.devilkxh.app.common.helper.ResponseHelper;
+import com.devilkxh.app.common.helper.WeChatHelper;
 import com.devilkxh.app.common.wrapper.QueryWrapper;
 import com.devilkxh.app.model.Constant;
 import com.devilkxh.app.model.column.AppGameLogColumn;
@@ -48,10 +49,14 @@ public class AppGameScoreController {
 
     @PostMapping(value = "/count")
     public ResultBean count(@RequestBody AppGameScore score) {
+//        if(!WeChatHelper.isSubcribe(score.getOpenId())) {
+//            return ResponseHelper.error(ExceptionError.WECHAT_SUBSCRIBE_ERROR);
+//        }
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         QueryWrapper wrapper = new QueryWrapper();
-        wrapper.eq(AppGameLogColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameLogColumn.TYPE.toString() , Constant.LOG_TYPE).and().eq(AppGameLogColumn.GAME_DATE.toString() , date);
+        wrapper.eq(AppGameLogColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameLogColumn.TYPE.toString() , Constant.LOG_TYPE).and().eq("date_format(GAME_DATE, '%Y-%m-%d')" , date);
         int count  = logService.selectCount(wrapper);
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq(AppGameScoreColumn.OPEN_ID.toString(), score.getOpenId()).and().eq(AppGameShareInfoColumn.SHARE_DATE.toString() , date).and().eq(AppGameShareInfoColumn.SHARE_TYPE.toString(), "GAME");
@@ -74,6 +79,9 @@ public class AppGameScoreController {
         }
         for(Map<String, Object> map: logCount) {
             String key = String.valueOf(map.get("type"));
+            if(!result.containsKey(key)) {
+                continue;
+            }
             int value = result.get(key) - Integer.valueOf(map.get("count").toString());
             result.put(key, value);
         }
