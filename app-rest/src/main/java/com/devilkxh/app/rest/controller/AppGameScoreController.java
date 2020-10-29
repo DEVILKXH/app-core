@@ -49,10 +49,9 @@ public class AppGameScoreController {
 
     @PostMapping(value = "/count")
     public ResultBean count(@RequestBody AppGameScore score) {
-//        if(!WeChatHelper.isSubcribe(score.getOpenId())) {
-//            return ResponseHelper.error(ExceptionError.WECHAT_SUBSCRIBE_ERROR);
-//        }
-
+        if(!WeChatHelper.isSubcribe(score.getOpenId())) {
+            return ResponseHelper.error(ExceptionError.WECHAT_SUBSCRIBE_ERROR);
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String date = sdf.format(new Date());
         QueryWrapper wrapper = new QueryWrapper();
